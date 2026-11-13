@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Command Console — Case Allocation System</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .ref-badge {
+      font-family: monospace;
+      font-weight: 700;
+      color: #1e3a8a;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11.5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">CP</div>
+        <div>
+          <h1>Master Admin Console</h1>
+          <div class="brand-tagline">Central Governance, Consensus Ledger &amp; Workforce Controls</div>
+        </div>
+      </div>
+      <nav class="portal-switch-links">
+        <a href="user-dashboard.html">Intake Desk</a>
+        <a href="coordinator.html">Coordinator</a>
+        <a href="field-officer.html">Field Officer</a>
+        <a href="auditor.html">Auditor</a>
+        <a href="admin.html" class="active">Master Admin</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="role-tag" id="topRoleTag">Master Admin</div>
+      </div>
+    </header>
+
+    <div id="adminApp">
+      <div class="panel"
+        style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <div>
+          <strong style="font-size:15px;">Statutory Data Pipeline &amp; Audit Telemetry</strong>
+          <div class="spec-line">Generate live CSV exports compatible with central audit systems</div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="btn small ghost" id="btnExportCases">📥 Export Claims Dossier (.CSV)</button>
+          <button type="button" class="btn small ghost" id="btnExportStaff">📥 Export Workforce Roster (.CSV)</button>
+        </div>
+      </div>
+
+      <div class="panel" id="rosterImportPanel" style="border-left: 4px solid var(--primary);">
+        <h2>Staff Roster Import (Excel)</h2>
+        <div class="panel-sub">Please upload the client coordinator / auditor / field officer Excel sheet here.
+          <strong>Replace</strong>: Replacing the list will delete the previous list and install the new one. Temporary passwords will be generated for new staff members, and a credential file will be downloaded (one-time only).</div>
+        <div class="field-row" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
+          <div class="field" style="min-width:170px;">
+            <label for="impRole">Target Role</label>
+            <select id="impRole">
+              <option value="Coordinator">Coordinators</option>
+              <option value="Auditor">Clinical Auditors</option>
+              <option value="FieldOfficer">Field Officers</option>
+            </select>
+          </div>
+          <div class="field" style="min-width:170px;">
+            <label for="impMode">Mode</label>
+            <select id="impMode">
+              <option value="replace">Replace (Overwrite existing directory)</option>
+              <option value="merge">Merge (Add and update, nothing will be deleted)</option>
+            </select>
+          </div>
+          <div class="field" style="flex:1; min-width:220px;">
+            <label for="impFile">Excel / CSV file (.xlsx, .xls, .csv)</label>
+            <input type="file" id="impFile" accept=".xlsx,.xls,.csv">
+          </div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;">
+          <button type="button" class="btn small" id="btnImportRoster">⬆ Import</button>
+          <button type="button" class="btn small ghost" id="btnTemplate">📄 Download template for this role</button>
+        </div>
+        <div id="impResult" class="spec-line" style="margin-top:12px; white-space:pre-wrap;"></div>
+      </div>
+
+      <div class="panel" id="loadUploadPanel" style="border-left: 4px solid #b45309;">
+        <h2>Current Case Load (Field Officers &amp; Auditors)</h2>
+        <div class="panel-sub">Upload how many cases each person is carrying <strong>right now outside this system</strong> (from the client's Excel). The Intake Desk adds this number to the cases inside the system when it checks capacity. Upload again at any time to refresh it. Once those cases have been entered here, upload 0 for them, otherwise they are counted twice.</div>
+        <div class="field-row" style="align-items:flex-end; gap:12px; flex-wrap:wrap;">
+          <div class="field" style="min-width:170px;">
+            <label for="loadRole">Whose load?</label>
+            <select id="loadRole">
+              <option value="FieldOfficer">Field Officers</option>
+              <option value="Auditor">Clinical Auditors</option>
+            </select>
+          </div>
+          <div class="field" style="flex:1; min-width:220px;">
+            <label for="loadFile">Excel / CSV file (.xlsx, .xls, .csv)</label>
+            <input type="file" id="loadFile" accept=".xlsx,.xls,.csv">
+          </div>
+        </div>
+        <label style="display:flex;gap:8px;align-items:center;font-size:12.5px;margin:6px 0 10px;">
+          <input type="checkbox" id="loadZeroMissing"> Set everyone of this role who is not in the file to 0
+        </label>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn small" id="btnLoadUpload">⬆ Update Load</button>
+          <button type="button" class="btn small ghost" id="btnLoadTemplate">📄 Download template</button>
+        </div>
+        <div id="loadResult" class="spec-line" style="margin-top:12px; white-space:pre-wrap;"></div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">Coordinators</span>
+          <span class="kpi-val" id="kpiCoords">0</span>
+          <div class="spec-line" id="kpiCoordsDuty">0 on active duty</div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Auditors</span>
+          <span class="kpi-val" id="kpiAuditors">0</span>
+          <div class="spec-line" id="kpiAuditorsDuty">0 on active duty</div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Field Officers</span>
+          <span class="kpi-val" id="kpiFOs">0</span>
+          <div class="spec-line" id="kpiFOsDuty">0 on active duty</div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Total Claims</span>
+          <span class="kpi-val" id="kpiTotalCases">0</span>
+          <div class="spec-line" id="kpiCaseStatus">0 Settled · 0 Active</div>
+        </div>
+      </div>
+
+      <div class="panel" id="claimLookupPanel" style="border-left: 4px solid #6b7280;">
+        <h2 style="margin:0 0 4px;">Find a Claim</h2>
+        <div class="panel-sub">Search any claim, however old, by claim number or docket ID (starts-with match).</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+          <input type="search" id="lookupInput" placeholder="e.g. CLM-1042" style="flex:1; min-width:200px;">
+          <button type="button" class="btn small" id="lookupBtn">Search</button>
+        </div>
+        <div class="table-container" style="margin-top:10px;">
+          <table class="data-table" id="lookupTable" style="display:none;">
+            <thead><tr><th>Docket / Claim</th><th>Patient &amp; Carrier</th><th>Team</th><th>Status</th></tr></thead>
+            <tbody id="lookupBody"></tbody>
+          </table>
+        </div>
+        <div id="lookupMsg" class="spec-line" style="margin-top:8px;"></div>
+      </div>
+
+      <div class="panel" id="loadOverviewPanel" style="border-left: 4px solid var(--accent, #2563eb);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:10px;">
+          <div>
+            <h2 style="margin:0;">Workforce Load Overview</h2>
+            <div class="panel-sub" id="loadOverviewSummary">Loading workload...</div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <select id="overviewRole" style="min-width:150px;">
+              <option value="FieldOfficer">Field Officers</option>
+              <option value="Auditor">Clinical Auditors</option>
+            </select>
+            <input type="search" id="overviewSearch" placeholder="Search name or ID..." style="min-width:170px;">
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="loadOverviewTable">
+            <thead><tr><th>Name</th><th>Type</th><th>Active cases (incl. uploaded)</th><th>Limit</th><th>Utilisation</th><th>Status</th></tr></thead>
+            <tbody id="loadOverviewBody"></tbody>
+          </table>
+        </div>
+        <div style="text-align:center; margin-top:10px;"><button type="button" class="btn small ghost" id="overviewMore" style="display:none;">Show more</button></div>
+      </div>
+
+      <div class="panel" style="border-left: 4px solid var(--green);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2>Tripartite Settled Claims Ledger (100% Consensus)</h2>
+          <button class="btn small ghost" id="btnRefreshSettled">Refresh</button>
+        </div>
+        <div id="settledLedgerWrap"></div>
+      </div>
+
+      <div class="panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h2>Master Claims Workflow Register</h2>
+          <button class="btn small ghost" id="btnRefreshCases">Refresh Live Register</button>
+        </div>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Case &amp; Claim No</th>
+                <th>Claimant &amp; Carrier</th>
+                <th>Territory &amp; PIN</th>
+                <th>Assigned Officers</th>
+                <th>Status</th>
+                <th>Discrepancy / Objection Note</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="caseTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="tabrow" style="margin-bottom:14px;">
+        <button type="button" class="active" id="tabCoords">Coordinators</button>
+        <button type="button" id="tabAuds">Clinical Auditors</button>
+        <button type="button" id="tabFOs">Field Officers</button>
+      </div>
+
+      <div class="panel" id="panelCoords">
+        <h2>Regional Coordinators Management</h2>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Emp ID</th>
+                <th>Name &amp; Phone</th>
+                <th>Zone</th>
+                <th>Active Load</th>
+                <th>Duty Status</th>
+                <th>Admin Controls</th>
+              </tr>
+            </thead>
+            <tbody id="coordTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" id="panelAuds" style="display:none;">
+        <h2>Clinical &amp; Forensic Auditors Management</h2>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Emp ID</th>
+                <th>Name &amp; Mode</th>
+                <th>Specialization</th>
+                <th>Daily Limit</th>
+                <th>Leave Status</th>
+                <th>Admin Controls</th>
+              </tr>
+            </thead>
+            <tbody id="audTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" id="panelFOs" style="display:none;">
+        <h2>Field Officers &amp; Ground Logistics Directory</h2>
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Emp ID</th>
+                <th>Name &amp; Phone</th>
+                <th>Grade</th>
+                <th>Base PIN</th>
+                <th>Max Visits</th>
+                <th>Duty Status</th>
+                <th>Admin Controls</th>
+              </tr>
+            </thead>
+            <tbody id="foTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="session.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="common.js"></script>
+  <script src="admin.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // Loads this user's cases, keeps them live (socket.io + polling) and retries failed saves. See session.js.
+    CA_startLive();
+  </script>
+</body>
+
+</html>

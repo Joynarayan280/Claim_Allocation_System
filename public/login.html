@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — Case Allocation System</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      padding: 34px 30px;
+      box-shadow: 0 10px 40px rgba(22, 56, 44, .08);
+    }
+
+    .login-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .login-brand h1 {
+      font-size: 20px;
+      margin: 0;
+    }
+
+    .login-brand .tag {
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .login-err {
+      display: none;
+      background: var(--red-bg);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .pw-wrap {
+      position: relative;
+    }
+
+    .pw-wrap input {
+      padding-right: 64px;
+    }
+
+    .pw-toggle {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 0;
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .login-foot {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="login-card">
+    <div class="login-brand brand">
+      <div class="mark">CA</div>
+      <div>
+        <h1>Case Allocation System</h1>
+        <div class="tag">Sign in with your Employee ID</div>
+      </div>
+    </div>
+
+    <div class="login-err" id="loginErr" role="alert"></div>
+
+    <form id="loginForm" autocomplete="on">
+      <div class="field">
+        <label for="employeeId">Employee ID</label>
+        <input type="text" id="employeeId" name="username" autocomplete="username" autocapitalize="characters" required autofocus>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <div class="pw-wrap">
+          <input type="password" id="password" name="password" autocomplete="current-password" required>
+          <button type="button" class="pw-toggle" id="pwToggle">Show</button>
+        </div>
+      </div>
+      <button type="submit" class="btn" id="btnLogin" style="width:100%;">Sign In</button>
+    </form>
+
+    <div class="login-foot">
+      Admins, coordinators, auditors, and field officers—all of them will log in from here.<br>
+      Password forgotten? Ask the system administrator to reset it.
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const form = document.getElementById('loginForm');
+      const err = document.getElementById('loginErr');
+      const btn = document.getElementById('btnLogin');
+      const pw = document.getElementById('password');
+
+      // Check if user is already logged in, redirect directly to dashboard
+      fetch('/api/auth/me')
+        .then(r => r.ok ? r.json() : null)
+        .then(me => {
+          if (me && me.role) {
+            window.location.replace(me.home || '/dashboard');
+          }
+        })
+        .catch(() => {});
+
+      document.getElementById('pwToggle').addEventListener('click', function () {
+        const show = pw.type === 'password';
+        pw.type = show ? 'text' : 'password';
+        this.textContent = show ? 'Hide' : 'Show';
+      });
+
+      async function signIn(role) {
+        err.style.display = 'none';
+        btn.disabled = true;
+        btn.textContent = 'Signing in...';
+
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              employeeId: document.getElementById('employeeId').value.trim(),
+              password: pw.value,
+              role: role || undefined
+            })
+          });
+
+          const data = await res.json().catch(function () { return {}; });
+          if (!res.ok) throw new Error(data.error || 'Login failed. Please check credentials.');
+
+          // The same employee ID can hold several roles (for example Coordinator and Auditor): let the person choose.
+          if (data.chooseRole) {
+            showRoleChoice(data.roles);
+            btn.disabled = false;
+            btn.textContent = 'Sign In';
+            return;
+          }
+
+          // Clean replace without history pollution
+          window.location.replace(data.redirect || '/dashboard');
+        } catch (ex) {
+          err.textContent = ex.message;
+          err.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Sign In';
+        }
+      }
+
+      function showRoleChoice(roles) {
+        let box = document.getElementById('roleChoice');
+        if (!box) {
+          box = document.createElement('div');
+          box.id = 'roleChoice';
+          box.style.cssText = 'margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:10px;';
+          form.appendChild(box);
+        }
+        const label = { Admin: 'Admin', Coordinator: 'Coordinator', Auditor: 'Clinical Auditor', FieldOfficer: 'Field Officer' };
+        box.innerHTML = '<div style="font-size:13px;font-weight:700;margin-bottom:8px;">This employee ID has more than one role. Open as:</div>';
+        roles.forEach(function (r) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'btn small';
+          b.style.cssText = 'margin:0 8px 8px 0;';
+          b.textContent = label[r] || r;
+          b.addEventListener('click', function () { signIn(r); });
+          box.appendChild(b);
+        });
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        signIn();
+      });
+    })();
+  </script>
+</body>
+
+</html>

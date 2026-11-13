@@ -1,0 +1,1540 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+:root {
+    /* Warm Ivory & Deep Forest Green Luxury Executive Palette */
+    --paper: #fbfaf5;
+    /* Main Warm Off-White / Cream background */
+    --panel: #ffffff;
+    /* Pure White Card Surface */
+    --panel-subtle: #f5f3ec;
+    /* Subtle Warm Fill */
+    --line: #edebe1;
+    /* Soft Elegant Border */
+    --line-strong: #dcd8cb;
+    /* Field Border & Inputs */
+
+    --ink: #19211d;
+    /* Charcoal Deep Green-Black Typography */
+    --ink-soft: #5b6560;
+    /* Slate Muted Text */
+    --ink-muted: #8d9790;
+    /* Tertiary / Monospace labels */
+
+    --primary: #16382c;
+    /* Deep Forest Green (Hero CTA) */
+    --primary-hover: #0f271f;
+    /* Darker Forest Green */
+
+    --accent: #16382c;
+    /* Primary Accent */
+    --accent-hover: #0f271f;
+    --accent-soft: #eaf3ee;
+    --accent-border: #c8dfd3;
+
+    --green: #15803d;
+    --green-bg: #edf8f1;
+    --green-border: #bbf0cf;
+
+    --amber: #b45309;
+    --amber-bg: #fef7ea;
+    --amber-border: #fde68a;
+
+    --red: #b91c1c;
+    --red-bg: #fdf2f2;
+    --red-border: #fecaca;
+
+    --cyan: #0f766e;
+    --cyan-bg: #f0fdfa;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-card: 18px;
+    /* Modern Curvier Card Corners */
+    --radius-pill: 9999px;
+
+    --shadow-xs: 0 1px 2px rgba(25, 33, 29, .04);
+    --shadow-sm: 0 2px 7px rgba(25, 33, 29, .06);
+    --shadow-md: 0 7px 18px rgba(25, 33, 29, .08);
+    --shadow-lg: 0 18px 45px rgba(25, 33, 29, .12);
+    --gutter: 24px;
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', 'IBM Plex Sans', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+}
+
+::selection {
+    background: var(--accent-soft);
+    color: var(--primary);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 0;
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: -.025em;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button,
+a,
+.btn,
+.ix-chip,
+.officer-row,
+.coord-row {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.shell {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 var(--gutter) 80px;
+}
+
+/* ==========================================================================
+   Top Header Navigation
+   ========================================================================== */
+
+header.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 14px var(--gutter);
+    margin: 0 calc(var(--gutter) * -1) 24px;
+    background: rgba(251, 250, 245, .94);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 18px rgba(25, 33, 29, .035);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.brand .mark {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(22, 56, 44, .18);
+}
+
+.brand h1 {
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.brand-tagline {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    line-height: 1.35;
+    margin-top: 2px;
+}
+
+.portal-switch-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: auto;
+    margin-right: 14px;
+    background: var(--panel-subtle);
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--line);
+}
+
+.portal-switch-links a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    transition: all .18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portal-switch-links a:hover {
+    color: var(--ink);
+    background: rgba(255, 255, 255, .7);
+}
+
+.portal-switch-links a.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: var(--shadow-xs);
+}
+
+.role-tag {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    border: 1px solid var(--accent-border);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft);
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Metrics & KPI Strips (Executive Rounded Cards with Text Balance)
+   ========================================================================== */
+
+.metrics-strip,
+.metrics-bar,
+.stats-grid,
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.metric-cell,
+.stat-box,
+.kpi-card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 16px 18px;
+    border-radius: var(--radius-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+    min-height: 105px;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.metric-cell:hover,
+.stat-box:hover,
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--line-strong);
+}
+
+.m-title,
+.stat-label,
+.kpi-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+}
+
+/* Sizing adjusted so that large titles and metrics do not overflow */
+.m-val,
+.stat-val,
+.kpi-val {
+    font-size: 18px;
+    font-weight: 750;
+    color: var(--ink);
+    margin: 4px 0 0;
+    letter-spacing: -.02em;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.m-val.highlight {
+    color: var(--primary);
+}
+
+.m-sub,
+.stat-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-muted);
+}
+
+/* ==========================================================================
+   Layout Containers & Panels
+   ========================================================================== */
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 22px;
+    align-items: start;
+}
+
+.grid2>* {
+    min-width: 0;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 24px 26px;
+    box-shadow: var(--shadow-xs);
+    margin-bottom: 22px;
+    transition: box-shadow .18s ease, border-color .18s ease;
+}
+
+.panel:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-sm);
+}
+
+.panel h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+    letter-spacing: -.025em;
+    color: var(--ink);
+}
+
+.panel-sub {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   Profile Card Details & Roster Viewers
+   ========================================================================== */
+
+.profile-card-details,
+.coord-card-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-xs);
+}
+
+.profile-item,
+.coord-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.profile-label,
+.coord-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: .03em;
+    color: var(--ink-muted);
+}
+
+.profile-val,
+.coord-val {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 3px;
+}
+
+.officer-row,
+.coord-row,
+.auditor-row {
+    cursor: pointer;
+    transition: background .15s ease;
+}
+
+.officer-row:hover,
+.coord-row:hover,
+.auditor-row:hover {
+    background: #fdfcf9;
+}
+
+.officer-row.selected-officer,
+.coord-row.selected-coord,
+.auditor-row.selected-auditor {
+    background: var(--accent-soft) !important;
+    border-left: 4px solid var(--primary);
+}
+
+/* ==========================================================================
+   Chips & Waypoint Badges
+   ========================================================================== */
+
+.waypoint-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 650;
+    background: var(--panel-subtle);
+    border: 1px solid var(--line-strong);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    margin-top: 3px;
+}
+
+.waypoint-chip.verified {
+    background: var(--green-bg);
+    border-color: var(--green-border);
+    color: var(--green);
+}
+
+.lang-chip {
+    display: inline-block;
+    font-size: 10.5px;
+    background: var(--accent-soft);
+    color: var(--primary);
+    padding: 3px 8px;
+    border-radius: var(--radius-sm);
+    margin-right: 4px;
+    font-weight: 700;
+    border: 1px solid var(--accent-border);
+}
+
+.gps-telemetry-strip {
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    border-radius: var(--radius-md);
+    padding: 11px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 650;
+    color: #166534;
+}
+
+.sla-pill {
+    font-family: 'IBM Plex Sans', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: var(--amber-bg);
+    color: var(--amber);
+    border: 1px solid var(--amber-border);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.sla-pill.breached {
+    background: var(--red-bg);
+    color: var(--red);
+    border-color: var(--red-border);
+}
+
+.zonal-indicator {
+    font-size: 12px;
+    font-weight: 750;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    color: var(--primary);
+    padding: 5px 12px;
+    border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   Capacity Progress Bar
+   ========================================================================== */
+
+.capacity-box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-xs);
+}
+
+.cap-bar-track {
+    width: 100%;
+    height: 10px;
+    background: var(--panel-subtle);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+    margin-top: 8px;
+    border: 1px solid var(--line);
+}
+
+.cap-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), #15803d);
+    border-radius: inherit;
+    transition: width .35s ease;
+}
+
+.cap-bar-fill.saturated {
+    background: var(--red) !important;
+}
+
+/* ==========================================================================
+   Form Fields & Controls
+   ========================================================================== */
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+
+.field input,
+.field select,
+.field textarea,
+#searchOfficerInput,
+#searchCoordInput,
+#searchAuditorInput,
+#caseSearchInput {
+    width: 100%;
+    background: #ffffff;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    font-family: inherit;
+    font-size: 13.5px;
+    color: var(--ink);
+    outline: none;
+    transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-xs);
+}
+
+select,
+.field select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235b6560' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px;
+    padding-right: 38px !important;
+    cursor: pointer;
+}
+
+.field input::placeholder,
+.field textarea::placeholder,
+#searchOfficerInput::placeholder,
+#searchCoordInput::placeholder,
+#searchAuditorInput::placeholder,
+#caseSearchInput::placeholder {
+    color: var(--ink-muted);
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+    border-color: #b5ada0;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+#searchOfficerInput:focus,
+#searchCoordInput:focus,
+#searchAuditorInput:focus,
+#caseSearchInput:focus {
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(22, 56, 44, .13);
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Buttons (Deep Forest Green CTAs)
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background: var(--primary);
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(22, 56, 44, .15);
+}
+
+.btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22, 56, 44, .2);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+}
+
+.btn.small {
+    padding: 6px 14px;
+    font-size: 12px;
+    border-radius: var(--radius-sm);
+}
+
+.btn.ghost {
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    box-shadow: none;
+}
+
+.btn.ghost:hover {
+    background: var(--panel-subtle);
+    color: var(--ink);
+    border-color: var(--ink-muted);
+}
+
+.btn.approve {
+    background: #15803d;
+    color: #fff;
+}
+
+.btn.approve:hover {
+    background: #166534;
+}
+
+.btn.reject {
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    color: var(--red);
+    box-shadow: none;
+}
+
+.btn.reject:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+}
+
+/* ==========================================================================
+   Data Tables
+   ========================================================================== */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: #fff;
+    box-shadow: var(--shadow-xs);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12.5px;
+    text-align: left;
+}
+
+.data-table th {
+    background: var(--panel-subtle);
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-weight: 800;
+    white-space: nowrap;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: .025em;
+}
+
+.data-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+    color: var(--ink);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.data-table tbody tr {
+    transition: background .13s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #fdfcf9;
+}
+
+/* ==========================================================================
+   Status Pills & Badges
+   ========================================================================== */
+
+.status-pill {
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    display: inline-block;
+    white-space: nowrap;
+    letter-spacing: .01em;
+}
+
+.status-pill.active {
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid var(--green-border);
+}
+
+.status-pill.inactive {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid var(--red-border);
+}
+
+.status-pill.pending {
+    background: var(--amber-bg);
+    color: var(--amber);
+    border: 1px solid var(--amber-border);
+}
+
+.badge-chip {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    margin: 2px;
+}
+
+.badge-client {
+    background: #eef5f1;
+    color: #164e39;
+    border: 1px solid #c7e0d3;
+}
+
+.badge-lang {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-spec {
+    background: var(--amber-bg);
+    color: var(--amber);
+    border: 1px solid var(--amber-border);
+}
+
+/* ==========================================================================
+   Cards & Inspection Strips
+   ========================================================================== */
+
+.match-card,
+.case-item,
+.claim-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-card);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-xs);
+    transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+
+.match-card:hover,
+.case-item:hover,
+.claim-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--line-strong);
+    border-left-color: var(--primary);
+}
+
+.match-card .role {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: .045em;
+}
+
+.match-card .who {
+    font-size: 15px;
+    font-weight: 750;
+    color: var(--ink);
+}
+
+.spec-line {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+}
+
+.duty-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-card);
+    padding: 18px 24px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-xs);
+}
+
+/* ==========================================================================
+   Duty Switch Toggle
+   ========================================================================== */
+
+.toggle-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.toggle-control input {
+    display: block;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+.toggle-track {
+    width: 44px;
+    height: 24px;
+    background: #dcd8cb;
+    border-radius: var(--radius-pill);
+    position: relative;
+    transition: background .2s ease, box-shadow .2s ease;
+}
+
+.toggle-track::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    top: 3px;
+    left: 3px;
+    transition: transform .2s ease;
+    box-shadow: 0 1px 3px rgba(25, 33, 29, .18);
+}
+
+.toggle-control input:checked+.toggle-track {
+    background: var(--primary);
+    box-shadow: 0 0 0 3px rgba(22, 56, 44, .1);
+}
+
+.toggle-control input:checked+.toggle-track::before {
+    transform: translateX(20px);
+}
+
+.toggle-control input:focus-visible+.toggle-track {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(25, 33, 29, .55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.modal-box {
+    background: #fff;
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    max-width: 480px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+
+/* ==========================================================================
+   Auth / Login Components
+   ========================================================================== */
+
+.auth-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 60px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    padding: 32px 28px;
+    box-shadow: var(--shadow-lg);
+}
+
+.tabrow {
+    display: flex;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--panel-subtle);
+    padding: 3px;
+    gap: 3px;
+    margin-bottom: 20px;
+}
+
+.tabrow button {
+    flex: 1;
+    padding: 8px 0;
+    border: none;
+    background: transparent;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--ink-soft);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    transition: background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+
+.tabrow button:hover {
+    color: var(--ink);
+}
+
+.tabrow button.active {
+    background: #fff;
+    color: var(--primary);
+    box-shadow: var(--shadow-xs);
+}
+
+/* ==========================================================================
+   Intake Desk additions
+   ========================================================================== */
+
+.ix-pininfo {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+}
+
+.ix-pininfo .tag {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    color: var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    font-weight: 650;
+}
+
+.ix-pininfo .tag.ok {
+    background: var(--green-bg);
+    border-color: var(--green-border);
+    color: var(--green);
+}
+
+.ix-pininfo .tag.warn {
+    background: var(--amber-bg);
+    border-color: var(--amber-border);
+    color: var(--amber);
+}
+
+.ix-pininfo .tag.err {
+    background: var(--red-bg);
+    border-color: var(--red-border);
+    color: var(--red);
+}
+
+.ix-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ix-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 6px 14px;
+    border: 1px solid var(--line-strong);
+    background: #fff;
+    color: var(--ink-soft);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: all .15s ease;
+}
+
+.ix-chip:hover {
+    border-color: var(--primary);
+    background: var(--panel-subtle);
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+.ix-chip.sel {
+    border-color: var(--primary);
+    background: var(--accent-soft);
+    color: var(--primary);
+    box-shadow: 0 2px 7px rgba(22, 56, 44, .1);
+}
+
+.ix-chip:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ix-chip .rank {
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 11px;
+}
+
+.ix-count {
+    font-weight: 650;
+    color: var(--ink-muted);
+    margin-left: 6px;
+    font-size: 12px;
+}
+
+.ix-hint {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 6px;
+}
+
+.ix-roll {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 2px 9px;
+    border-radius: 9999px;
+    border: 1px solid;
+    margin-left: 4px;
+    vertical-align: middle;
+    letter-spacing: .02em;
+}
+
+.ix-roll.on {
+    background: var(--green-bg);
+    color: var(--green);
+    border-color: var(--green-border);
+}
+
+.ix-roll.off {
+    background: var(--amber-bg);
+    color: var(--amber);
+    border-color: var(--amber-border);
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+
+@media (min-width: 901px) {
+    #caseListWrap {
+        max-height: 70vh;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line-strong) transparent;
+    }
+}
+
+@media (max-width: 1100px) {
+    header.topbar>.brand {
+        order: 1;
+        flex: 1 1 260px;
+    }
+
+    header.topbar> :last-child {
+        order: 2;
+    }
+
+    .portal-switch-links {
+        order: 3;
+        flex: 1 0 100%;
+        margin: 0;
+        overflow-x: auto;
+        padding-bottom: 2px;
+        scrollbar-width: none;
+    }
+
+    .portal-switch-links::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    header.topbar {
+        position: static;
+    }
+
+    input,
+    select,
+    textarea,
+    .field input,
+    .field select,
+    .field textarea {
+        font-size: 16px;
+    }
+
+    .table-container {
+        border: 0;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .data-table,
+    .data-table tbody {
+        display: block;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table tr {
+        display: block;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 6px 14px;
+        margin-bottom: 12px;
+        box-shadow: var(--shadow-xs);
+    }
+
+    .data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        text-align: right;
+        padding: 9px 0;
+        border-bottom: 1px dashed var(--line);
+    }
+
+    .data-table td:last-child {
+        border-bottom: 0;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        flex: 0 0 38%;
+        text-align: left;
+        font-size: 10.5px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        letter-spacing: .025em;
+    }
+
+    .data-table td[colspan] {
+        display: block;
+        text-align: center;
+    }
+
+    .data-table td[colspan]::before {
+        content: none;
+    }
+}
+
+@media (max-width: 600px) {
+    :root {
+        --gutter: 14px;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .shell {
+        padding-bottom: 50px;
+    }
+
+    header.topbar {
+        gap: 9px 10px;
+        margin-bottom: 18px;
+        padding-top: 11px;
+        padding-bottom: 11px;
+    }
+
+    .brand h1 {
+        font-size: 16px;
+    }
+
+    .brand .mark {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+    }
+
+    .brand-tagline {
+        font-size: 10.5px;
+    }
+
+    .panel {
+        padding: 18px 16px;
+        border-radius: 14px;
+        margin-bottom: 16px;
+    }
+
+    .panel h2 {
+        font-size: 16px;
+    }
+
+    .auth-wrap {
+        padding: 20px 0 40px;
+    }
+
+    .auth-card {
+        padding: 24px 18px;
+        border-radius: 14px;
+    }
+
+    .m-val,
+    .stat-val,
+    .kpi-val {
+        font-size: 20px;
+    }
+
+    .metric-cell,
+    .stat-box,
+    .kpi-card {
+        padding: 16px;
+    }
+
+    #actionRow .btn,
+    .entry-choice-row .btn {
+        flex-basis: 100% !important;
+    }
+
+    .profile-card-details,
+    .coord-card-row {
+        padding: 14px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .duty-bar {
+        padding: 14px;
+    }
+
+    .modal-box {
+        padding: 20px;
+        max-height: 92vh;
+    }
+
+    .ix-chip {
+        flex: 1 1 44%;
+        justify-content: center;
+    }
+}
+
+@media (pointer: coarse) {
+    .btn {
+        min-height: 44px;
+    }
+
+    .btn.small {
+        min-height: 38px;
+    }
+
+    .portal-switch-links a {
+        padding: 9px 14px;
+    }
+
+    .tabrow button {
+        min-height: 40px;
+    }
+
+    .ix-chip {
+        min-height: 42px;
+    }
+}
+
+/* ==========================================================================
+   Subtle scrollbar polish — visual only
+   ========================================================================== */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-muted);
+}
+/* =====================================================================
+   Responsive hardening: phones, tablets and desktops
+   - Tables turn into stacked cards up to 900 px wide (tablet portrait included).
+   - Cells are plain blocks (a label above its value) so nothing is squeezed into a few pixels.
+   ===================================================================== */
+@media (max-width: 900px) {
+    .table-container { border: 0; overflow: visible; background: transparent; box-shadow: none; }
+
+    .data-table, .data-table tbody { display: block; width: 100%; }
+    .data-table thead { display: none; }
+
+    .data-table tr {
+        display: block;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: 8px 14px;
+        margin-bottom: 12px;
+        box-shadow: var(--shadow-xs);
+    }
+
+    .data-table td {
+        display: block;
+        text-align: left;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--line);
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    .data-table td:last-child { border-bottom: 0; }
+    .data-table td::before { display: none; }
+    .data-table td[data-label]::before {
+        display: block;
+        content: attr(data-label);
+        margin-bottom: 3px;
+        text-align: left;
+        font-size: 10.5px;
+        font-weight: 800;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        letter-spacing: .025em;
+    }
+    .data-table td[colspan] { text-align: center; }
+    .data-table td[colspan]::before { display: none; }
+
+    /* action buttons wrap instead of overflowing */
+    .data-table td .btn, .claim-card .btn { margin: 2px 4px 2px 0; }
+}
+
+@media (max-width: 600px) {
+    /* four summary tiles become a 2 x 2 grid instead of four tall cards */
+    .kpi-grid, .metrics-bar, .stat-grid, .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 10px; }
+    .metrics-bar { display: grid; }
+    .metrics-bar .stat-box { min-width: 0; }
+    .kpi-grid .kpi, .kpi-grid > * { min-width: 0; }
+
+    /* comfortable touch targets */
+    .btn, button, select, input[type="checkbox"] { min-height: 40px; }
+    .btn.small { min-height: 36px; }
+
+    .panel, .claim-card { padding-left: 14px; padding-right: 14px; }
+    .topbar { flex-wrap: wrap; }
+    #caUserChip { width: 100%; justify-content: space-between; margin-left: 0 !important; }
+}
+
+/* the notification banner never covers a whole phone screen */
+#caBanner { max-width: calc(100vw - 24px); }
+/* ==========================================================================
+   INTERACTIVE MOBILE ANIMATIONS FOR MATCH MATRIX & INSPECTION ENGINE
+   ========================================================================== */
+
+/* 1. Keyframe Definitions for Smooth Entry & Pulse Effects */
+@keyframes matchCardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 56, 44, 0.25);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(22, 56, 44, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 56, 44, 0);
+  }
+}
+
+@keyframes rotateIconSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Candidate Matching List Entry Transition */
+#matchList {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3. Staggered Cascade Animation for Resulting Cards */
+#matchList .match-card {
+  animation: matchCardSlideUp 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Stagger card appearance by child index */
+#matchList .match-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+#matchList .match-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+#matchList .match-card:nth-child(3) {
+  animation-delay: 0.20s;
+}
+#matchList .match-card:nth-child(4) {
+  animation-delay: 0.28s;
+}
+
+/* 4. Action Row (Dispatch / Alternate) Smooth Slide */
+#actionRow {
+  animation: matchCardSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.32s;
+}
+
+/* 5. Interactive Touch Feedback on Buttons (Haptic-like Spring Effect) */
+.match-card button:active,
+#actionRow .btn:active,
+#btnAccept:active {
+  transform: scale(0.97) !important;
+  transition: transform 0.1s ease;
+}
+
+/* 6. Active State for Rotate Trigger */
+.match-card button[id*="Rotate"]:active svg,
+.match-card button[id*="rotate"]:active span {
+  display: inline-block;
+  animation: rotateIconSpin 0.4s linear;
+}
+
+/* 7. Highlight Glow on Active Matching Cards */
+.match-card:focus-within {
+  border-left-width: 5px !important;
+  box-shadow: 0 4px 14px rgba(22, 56, 44, 0.08) !important;
+}
+
+/* 8. Success Dispatch Button Pulse */
+#btnAccept {
+  animation: pulseGlow 2.5s infinite;
+}

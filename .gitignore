@@ -1,0 +1,5 @@
+# Never go to GitHub
+node_modules/
+.env
+*.log
+.DS_Store
