@@ -1,0 +1,37 @@
+name: Daily MongoDB Cloud Backup
+
+on:
+  schedule:
+    - cron: '30 18 * * *' # Runs daily at 12:00 AM IST (18:30 UTC)
+  workflow_dispatch:      # Allows manual run from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install mongoose dotenv
+
+      - name: Run MongoDB Backup
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+        run: node scripts/backup.js
+
+      - name: Commit & Push Backup to GitHub
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add backups/
+          git commit -m "Auto MongoDB Backup: $(date +'%Y-%m-%d')" || echo "No new changes to commit"
+          git push
