@@ -1680,39 +1680,6 @@
             renderMatchUI();
         });
 
-        // 3. Auditor Searchable Dropdown
-        setupSearchableDropdown('aud', (selectedIdx) => {
-            curAudIdx = selectedIdx;
-            renderMatchUI();
-        });
-
-        document.getElementById('btnRotateAuditor')?.addEventListener('click', () => {
-            if (poolAuditors.length > 1) {
-                curAudIdx = (curAudIdx + 1) % poolAuditors.length;
-                renderMatchUI();
-            }
-        });
-
-        document.getElementById('btnRotateAlternate')?.addEventListener('click', () => {
-            if (activeMode === 'Digital') {
-                if (poolAuditors.length > 1) {
-                    curAudIdx = (curAudIdx + 1) % poolAuditors.length;
-                }
-            } else {
-                if (poolCoordinators.length > 1) {
-                    curCoordIdx = (curCoordIdx + 1) % poolCoordinators.length;
-                    pendingMatch.consensus.coordinator = poolCoordinators[curCoordIdx];
-                }
-                if (poolHospFOs.length > 1) {
-                    curHospFoIdx = (curHospFoIdx + 1) % poolHospFOs.length;
-                }
-                if (poolAuditors.length > 1) {
-                    curAudIdx = (curAudIdx + 1) % poolAuditors.length;
-                }
-            }
-            renderMatchUI();
-        });
-
         document.getElementById('btnBackEdit')?.addEventListener('click', () => {
             clearMatchUI();
             saveIntakeDraft();
@@ -1767,6 +1734,7 @@
             const ask = async (dest, origins) => {
                 const todo = [...new Set(origins)].filter(o => o && o !== dest && realKm(o, dest) === null);
                 if (!todo.length) return;
+                
 
                 // Prioritize local/same-state PINs first (up to 60 per batch)
                 const CHUNK_SIZE = 50;
