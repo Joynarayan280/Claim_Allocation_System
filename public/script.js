@@ -1750,7 +1750,7 @@
                         const data = await res.json();
                         mapsEnabled = !!data.enabled;
                         if (data.provider) mapsProvider = data.provider;
-
+                        
                         Object.keys(data.km || {}).forEach(o => {
                             if (typeof data.km[o] !== 'number') return;
                             REAL_KM[realPairKey(o, dest)] = data.km[o];
